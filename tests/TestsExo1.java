@@ -1,5 +1,3 @@
-package test;
-
 import main.Main;
 import main.exo1.Model;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,4 +45,5 @@ public class TestsExo1 {
 
     }
 }
+
 
