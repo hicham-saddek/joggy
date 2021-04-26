@@ -10,14 +10,14 @@ public class Node {
     public Node(ArrayList<Task> unplacedTasks) {
         this.setPlacedTasks(new ArrayList<>());
         this.setUnplacedTasks(unplacedTasks);
-        this.setChildren(null);
+        this.setChildren(new ArrayList<>());
         this.build();
     }
 
     public Node(ArrayList<Task> placedTasks, ArrayList<Task> unplacedTasks) {
         this.setPlacedTasks(placedTasks);
         this.setUnplacedTasks(unplacedTasks);
-        this.setChildren(null);
+        this.setChildren(new ArrayList<>());
         this.build();
     }
 
@@ -25,13 +25,14 @@ public class Node {
         ArrayList<Task> placed;
         ArrayList<Task> unplaced;
 
-        for (Task task : unplacedTasks) {
-            placed = this.placedTasks;
-            unplaced = this.unplacedTasks;
-            placed.add(task);
-            unplaced.remove(task);
-            this.children.add(new Node(placed, unplacedTasks));
-        }
+        if (this.getUnplacedTasks().size() > 0)
+            for (Task task : this.getUnplacedTasks()) {
+                placed = this.getPlacedTasks();
+                unplaced = this.getUnplacedTasks();
+                placed.add(task);
+                unplaced.remove(task);
+                this.getChildren().add(new Node(placed, unplaced));
+            }
     }
 
     public Limit penalty() {
@@ -68,7 +69,7 @@ public class Node {
     }
 
     public ArrayList<Node> getChildren() {
-        return children;
+        return this.children;
     }
 
     public void setChildren(ArrayList<Node> children) {
@@ -76,7 +77,7 @@ public class Node {
     }
 
     public ArrayList<Task> getPlacedTasks() {
-        return placedTasks;
+        return this.placedTasks;
     }
 
     public void setPlacedTasks(ArrayList<Task> placedTasks) {
@@ -84,7 +85,7 @@ public class Node {
     }
 
     public ArrayList<Task> getUnplacedTasks() {
-        return unplacedTasks;
+        return this.unplacedTasks;
     }
 
     public void setUnplacedTasks(ArrayList<Task> unplacedTasks) {
