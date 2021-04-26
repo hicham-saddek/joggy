@@ -93,6 +93,6 @@ public class Task {
                 ", pi=" + pi +
                 ", di=" + di +
                 ", wi=" + wi +
-                '}';
+                ", di/wi= " + this.getDiDividedByWi() + "}";
     }
 }

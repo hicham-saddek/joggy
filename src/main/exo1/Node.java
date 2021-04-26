@@ -25,32 +25,30 @@ public class Node {
         ArrayList<Task> placed;
         ArrayList<Task> unplaced;
 
-        if (this.getUnplacedTasks().size() > 0)
-            for (Task task : this.getUnplacedTasks()) {
-                placed = this.getPlacedTasks();
-                unplaced = this.getUnplacedTasks();
-                placed.add(task);
-                unplaced.remove(task);
-                this.getChildren().add(new Node(placed, unplaced));
-            }
+        for (Task task : this.getUnplacedTasks()) {
+            placed = new ArrayList<>(this.getPlacedTasks());
+            placed.add(task);
+            unplaced = new ArrayList<>(this.getUnplacedTasks());
+            unplaced.remove(task);
+            this.getChildren().add(new Node(placed, unplaced));
+        }
     }
 
     public Limit penalty() {
         int sum = 0, penaltySum = 0;
-        Task task;
         StringBuilder path = new StringBuilder();
         ArrayList<String> taskNumbers = new ArrayList<>();
         path.append("[");
 
-        for (int index = 0; index < this.getUnplacedTasks().size(); index++) {
-            task = this.getUnplacedTasks().get(index);
+        for (Task task : this.getPlacedTasks()) {
             sum += task.getPi();
             penaltySum += sum > task.getDi() ? (sum - task.getDi()) * task.getWi() : 0;
-            taskNumbers.add(String.valueOf(this.getPlacedTasks().get(index).getId()));
+            taskNumbers.add(String.valueOf(task.getId()));
         }
 
-        for (int index = taskNumbers.size() - 1; index >= 0; index--) {
-            path.append(this.getPlacedTasks().get(index).getId());
+        for (int i = 0; i < taskNumbers.size(); i++){
+
+            path.append(this.getPlacedTasks().get(i).getId());
         }
 
         path.append("]");
@@ -60,11 +58,15 @@ public class Node {
 
     public Limit calculateMinLimitFromNodes() {
         Limit result = new Limit(Integer.MAX_VALUE, ""), temporary;
-        if (this.getChildren().size() < 1) return result;
+
+        if (this.getChildren().size() < 1)
+            return penalty();
+
         for (Node node : this.getChildren()) {
             temporary = node.calculateMinLimitFromNodes();
             result = temporary.getMin() < result.getMin() ? temporary : result;
         }
+
         return result;
     }
 

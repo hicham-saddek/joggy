@@ -27,15 +27,16 @@ public class Main {
 
         System.out.println("\n - Question 1:");
         System.out.println("\n   Tri des tâches par ordre décroissant des di/wi: ");
-        System.out.println("\n" + model.getTasks());
-        System.out.println("\n   La somme des penalitées de retard: " + node.penalty().getMin());
+        for (Task task : model.getTasks())
+            System.out.println("\n       " + task);
+        System.out.println("\n   La somme des penalitées de retard: " + model.penalty());
         System.out.println("\n - Question 2:");
         System.out.println("\n   La borne inférieure: " + limit.getMin());
         System.out.println("\n - Question 3:");
         System.out.println("\n   Chemin: " + limit.getPath());
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         System.out.println("Exercice 1 : --------------------------------------------------------------------------------------\n");
         Main.exo1();
