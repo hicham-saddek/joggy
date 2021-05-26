@@ -26,14 +26,12 @@ public class Main {
         Limit limit = node.calculateMinLimitFromNodes();
 
         System.out.println("\n - Question 1:");
-        System.out.println("\n   Tri des tâches par ordre décroissant des di/wi: ");
-        for (Task task : model.getTasks())
-            System.out.println("\n       " + task);
+        System.out.println("\n   Tri des tâches par ordre décroissant des di/wi: \n" + model);
         System.out.println("\n   La somme des penalitées de retard: " + model.penalty());
         System.out.println("\n - Question 2:");
         System.out.println("\n   La borne inférieure: " + limit.getMin());
         System.out.println("\n - Question 3:");
-        System.out.println("\n   Chemin: " + limit.getPath());
+        System.out.println("\n   Chemin: " + limit.getTasks());
     }
 
     public static void main(String[] args) {

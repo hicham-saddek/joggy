@@ -1,5 +1,8 @@
 package main.exo1;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
 public class Task {
     private int id, pi, di, wi;
 
@@ -66,24 +69,24 @@ public class Task {
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public int getDi() {
-        return this.di;
+    public float getDi() {
+        return (float)this.di;
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public int getWi() {
-        return this.wi;
+    public float getWi() {
+        return (float)this.wi;
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public int getDiDividedByWi() {
-        return this.di / this.wi;
+    public float getDiDividedByWi() {
+        return (float)(this.getDi() / this.getWi());
     }
 
     @Override
@@ -94,5 +97,30 @@ public class Task {
                 ", di=" + di +
                 ", wi=" + wi +
                 ", di/wi= " + this.getDiDividedByWi() + "}";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return id == task.id && pi == task.pi && di == task.di && wi == task.wi;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, pi, di, wi);
+    }
+
+    public static ArrayList<Task> reverse(ArrayList<Task> tasks){
+
+        for (int i = 0; i <= tasks.size()/2; i++) {
+            Task task = tasks.get(i);
+            Task otherTask = tasks.get(tasks.size()-1-i);
+            tasks.set(i, otherTask);
+            tasks.set(i, task);
+        }
+
+        return tasks;
     }
 }

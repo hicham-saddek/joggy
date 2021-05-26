@@ -37,27 +37,20 @@ public class Node {
     public Limit penalty() {
         int sum = 0, penaltySum = 0;
         StringBuilder path = new StringBuilder();
-        ArrayList<String> taskNumbers = new ArrayList<>();
+        ArrayList<Task> taskNumbers = new ArrayList<>();
         path.append("[");
 
         for (Task task : this.getPlacedTasks()) {
             sum += task.getPi();
             penaltySum += sum > task.getDi() ? (sum - task.getDi()) * task.getWi() : 0;
-            taskNumbers.add(String.valueOf(task.getId()));
+            taskNumbers.add(task);
         }
 
-        for (int i = 0; i < taskNumbers.size(); i++){
-
-            path.append(this.getPlacedTasks().get(i).getId());
-        }
-
-        path.append("]");
-
-        return new Limit(penaltySum, path.toString());
+        return new Limit(penaltySum, Task.reverse(taskNumbers));
     }
 
     public Limit calculateMinLimitFromNodes() {
-        Limit result = new Limit(Integer.MAX_VALUE, ""), temporary;
+        Limit result = new Limit(Integer.MAX_VALUE, new ArrayList<>()), temporary;
 
         if (this.getChildren().size() < 1)
             return penalty();
@@ -68,6 +61,14 @@ public class Node {
         }
 
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Node{" +
+                ", placedTasks=" + this.placedTasks +
+                ", unplacedTasks=" + this.unplacedTasks +
+                '}';
     }
 
     public ArrayList<Node> getChildren() {

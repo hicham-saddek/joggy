@@ -10,15 +10,17 @@ public class Model {
         this.setTasks(tasks);
     }
 
-    public void sortDescending() {
-        for (int i = 0; i < this.getTasks().size(); i++) {
-            Task task = this.getTasks().get(i);
-            for(int j = i + 1; j < this.getTasks().size(); j++){
-                Task otherTask = this.getTasks().get(j);
-                if(task.getDiDividedByWi() < otherTask.getDiDividedByWi())
-                    Collections.swap(this.getTasks(), this.getTasks().indexOf(task), this.getTasks().indexOf(otherTask));
+    public ArrayList<Task> sortDescending() {
+        ArrayList<Task> TL = this.getTasks();
+        for (int i = 0; i < TL.size(); i++) {
+            int s = i;
+            for (int j = i; j < TL.size(); j++) {
+                s = TL.get(s).getDiDividedByWi() < TL.get(j).getDiDividedByWi() ? j : s;
             }
+            if (s != i) Collections.swap(TL, i, s);
         }
+        this.setTasks(TL);
+        return this.getTasks();
     }
 
     public int penalty() {
@@ -33,10 +35,23 @@ public class Model {
     }
 
     public ArrayList<Task> getTasks() {
-        return tasks;
+        return this.tasks;
     }
 
     public void setTasks(ArrayList<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    @Override
+    public String toString() {
+
+        String result = "Model{\n";
+        for (Task task : this.getTasks()) {
+            result += "task[" +
+                    "id=" + task.getId() +
+                    ", di/wi= " + task.getDiDividedByWi() + "]\n";
+        }
+        result += "}";
+        return result;
     }
 }

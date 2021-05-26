@@ -1,15 +1,17 @@
 package main.exo1;
 
+import java.util.ArrayList;
+
 public class Limit {
     private int min;
-    private String path;
+    private ArrayList<Task> tasks;
 
     /**
      * @param min  int
-     * @param path String
+     * @param tasks String
      */
-    public Limit(int min, String path) {
-        this.setMin(min).setPath(path);
+    public Limit(int min, ArrayList<Task> tasks) {
+        this.setMin(min).setTasks(tasks);
     }
 
     /**
@@ -22,10 +24,10 @@ public class Limit {
     }
 
     /**
-     * @param path String
+     * @param tasks String
      */
-    public void setPath(String path) {
-        this.path = path;
+    public void setTasks(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     /**
@@ -38,7 +40,7 @@ public class Limit {
     /**
      * @return String
      */
-    public String getPath() {
-        return path;
+    public ArrayList<Task> getTasks() {
+        return tasks;
     }
 }
